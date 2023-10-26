@@ -1,0 +1,8 @@
+- hosts: centos
+  tasks:
+  - replace:
+      path: /etc/chrony.conf
+      regexp: '^time1 .*$'
+      replace: 
+        - ['time1.google.com', 'time2.google.com']
+        

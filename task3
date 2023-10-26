@@ -1,0 +1,19 @@
+- hosts: centos
+  vars:
+    replacement_strings:
+      - { regex: '^server.*$', replacement: 'server time1.google.com iburst' }
+      - { regex: '^server.*$', replacement: 'server time2.google.com iburst' }
+  tasks:
+    - name: Replace list of strings in chrony.conf
+      replace:
+        path: /etc/chrony.conf
+        regexp: "{{ item.regex }}"
+        replace: "{{ item.replacement }}"
+      with_items: "{{ replacement_strings }}"
+- hosts: centos
+  tasks:
+  - replace:
+      path: /etc/resolv.conf
+      regexp: '^nameserver .*$'
+      replace: 
+        - ['nameserver 8.8.8.8', 'nameserver 8.8.4.4']

@@ -4,5 +4,5 @@
       path: /etc/chrony.conf
       regexp: '^time1 .*$'
       replace: 
-        - ['time1.google.com', 'time2.google.com']
+         - ['server time1.google.com iburst', 'server time2.google.com iburst']
         

@@ -1,8 +1,8 @@
 - hosts: centos
   vars:
     replacement_strings:
-      - { regex: '^server.*$', replacement: 'server time1.google.com iburst' }
-      - { regex: '^server.*$', replacement: 'server time2.google.com iburst' }
+      - { regex: '^server 0.centos.pool.ntp.org.*$', replacement: 'server time1.google.com iburst' }
+      - { regex: '^server 1.centos.pool.ntp.org.*$', replacement: 'server time2.google.com iburst' }
   tasks:
     - name: Replace list of strings in chrony.conf
       replace:
@@ -10,6 +10,7 @@
         regexp: "{{ item.regex }}"
         replace: "{{ item.replacement }}"
       with_items: "{{ replacement_strings }}"
+
 - hosts: centos
   tasks:
   - replace:

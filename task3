@@ -11,6 +11,11 @@
         replace: "{{ item.replacement }}"
       with_items: "{{ replacement_strings }}"
 
+    - name: Restar chrony 
+      systemd:
+        name: chronyd
+        state: restarted 
+
 - hosts: centos
   tasks:
   - replace:

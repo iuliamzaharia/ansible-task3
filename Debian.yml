@@ -1,0 +1,30 @@
+- name: Install apache
+  apt:
+    name: apache2
+    state: present
+
+- name: Start Apache
+  systemd:
+    state: started
+    enabled: yes
+    name: apache2 
+
+- name: Download Template
+  get_url:
+    url: https://www.free-css.com/assets/files/free-css-templates/download/page296/finexo.zip
+    dest: /tmp/finexo.zip
+
+- name: Install unzip
+  apt:
+    name: unzip
+    state: present
+
+- name: Extract Template
+  unarchive:
+    src: /tmp/finexo.zip
+    dest: /tmp/
+    remote_src: yes 
+
+- shell: mv /tmp/finexo-html/* /var/www/html/
+  args:
+    creates: /var/www/html/about.html
